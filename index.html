@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Follower Booster | Phan Minh Nam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/logo.png">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="img/logo.png" alt="TikTok Follower Booster" class="logo">
+                <h2>TikTok Booster</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Trang chính</a></li>
+                    <li><a href="#history"><i class="fas fa-history"></i> Lịch sử</a></li>
+                    <li><a href="#guide"><i class="fas fa-book"></i> Hướng dẫn</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> Thông tin</a></li>
+                </ul>
+            </nav>
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="stat-info">
+                        <span>Tổng thành công</span>
+                        <h3 id="total-success">0</h3>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-info">
+                        <span>Lần cuối sử dụng</span>
+                        <h3 id="last-use">Chưa sử dụng</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="author-info">
+                <p>Developed by Phan Minh Nam</p>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <header>
+                <h1><i class="fab fa-tiktok"></i> TikTok Follower Booster</h1>
+                <p>Công cụ tăng follower TikTok - Chỉ dùng cho mục đích học tập</p>
+            </header>
+            
+            <section id="dashboard" class="section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-rocket"></i> Buff Follower</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <label for="tiktok-id">Nhập ID TikTok của bạn</label>
+                            <input type="text" id="tiktok-id" placeholder="Nhập ID TikTok (không cần @)">
+                            <button id="boost-btn" class="btn primary"><i class="fas fa-play"></i> Bắt đầu Buff</button>
+                        </div>
+                        
+                        <div id="status-container" class="hidden">
+                            <div class="status-box">
+                                <h3 id="status-title">Đang xử lý...</h3>
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="progress-bar">
+                                        <div class="progress" id="progress"></div>
+                                    </div>
+                                    <div class="progress-text" id="progress-text">0%</div>
+                                </div>
+                                <p id="status-message">Đang thiết lập kết nối...</p>
+                                <div id="countdown" class="countdown">00:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="success-container" class="hidden card success-card">
+                    <div class="card-header success">
+                        <h2><i class="fas fa-check-circle"></i> Buff Thành Công!</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="success-info">
+                            <div class="success-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="success-details">
+                                <h3>ID: <span id="success-id"></span></h3>
+                                <p>Followers hiện tại: <span id="follower-count">0</span></p>
+                                <p>Thời gian: <span id="success-time"></span></p>
+                                <button id="boost-again-btn" class="btn primary"><i class="fas fa-redo"></i> Buff Lại</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="error-container" class="hidden card error-card">
+                    <div class="card-header error">
+                        <h2><i class="fas fa-exclamation-circle"></i> Không Thể Buff Follow</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="error-info">
+                            <div class="error-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="error-details">
+                                <h3>Lỗi: <span id="error-reason"></span></h3>
+                                <p id="wait-message"></p>
+                                <div id="error-countdown" class="countdown">00:00</div>
+                                <button id="try-again-btn" class="btn primary"><i class="fas fa-redo"></i> Thử Lại</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-success">
+                    <h3><i class="fas fa-history"></i> Thành công gần đây</h3>
+                    <ul id="recent-success-list">
+                        <!-- Sẽ được điền bởi JavaScript -->
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="history" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-history"></i> Lịch Sử Thành Công</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Thời gian</th>
+                                        <th>ID TikTok</th>
+                                        <th>Followers</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body">
+                                    <!-- Sẽ được điền bởi JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-actions">
+                            <button id="clear-history-btn" class="btn danger"><i class="fas fa-trash"></i> Xóa Lịch Sử</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="guide" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-book"></i> Hướng Dẫn Sử Dụng</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="guide-content">
+                            <div class="guide-item">
+                                <div class="guide-icon"><i class="fas fa-user"></i></div>
+                                <div class="guide-text">
+                                    <h3>1. Nhập ID TikTok</h3>
+                                    <p>Nhập ID TikTok của bạn vào ô trên trang chính (không cần @)</p>
+                                </div>
+                            </div>
+                            <div class="guide-item">
+                                <div class="guide-icon"><i class="fas fa-play"></i></div>
+                                <div class="guide-text">
+                                    <h3>2. Bắt đầu Buff</h3>
+                                    <p>Nhấn nút "Bắt đầu Buff" và đợi hệ thống xử lý</p>
+                                </div>
+                            </div>
+                            <div class="guide-item">
+                                <div class="guide-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="guide-text">
+                                    <h3>3. Kiểm tra kết quả</h3>
+                                    <p>Nếu thành công, số follower sẽ tăng dần</p>
+                                </div>
+                            </div>
+                            <div class="guide-item">
+                                <div class="guide-icon"><i class="fas fa-clock"></i></div>
+                                <div class="guide-text">
+                                    <h3>4. Đợi giữa các lần buff</h3>
+                                    <p>Thông thường cần đợi 30 phút giữa các lần buff</p>
+                                </div>
+                            </div>
+                            
+                            <div class="notes">
+                                <h3><i class="fas fa-exclamation-triangle"></i> Lưu ý:</h3>
+                                <ul>
+                                    <li>Tài khoản TikTok phải công khai</li>
+                                    <li>Tool này chỉ dùng cho mục đích học tập</li>
+                                    <li>Không nên buff quá nhiều trong một ngày</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="about" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-info-circle"></i> Thông Tin Tool</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="about-content">
+                            <div class="about-logo">
+                                <i class="fab fa-tiktok"></i>
+                            </div>
+                            <div class="about-details">
+                                <h3>TikTok Follower Booster</h3>
+                                <p class="version">Phiên bản: 2.0 Web</p>
+                                <p>Được phát triển cho mục đích nghiên cứu và học tập</p>
+                                
+                                <div class="features">
+                                    <h4>Tính năng:</h4>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> Tăng followers TikTok tự động</li>
+                                        <li><i class="fas fa-check"></i> Giao diện đẹp và thân thiện</li>
+                                        <li><i class="fas fa-check"></i> Lưu trữ lịch sử hoạt động</li>
+                                        <li><i class="fas fa-check"></i> Theo dõi tiến trình trực quan</li>
+                                        <li><i class="fas fa-check"></i> Dễ dàng sử dụng trên mọi thiết bị</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="developer-info">
+                                    <h4>Nhà phát triển:</h4>
+                                    <div class="developer">
+                                        <div class="developer-avatar">
+                                            <i class="fas fa-user-circle"></i>
+                                        </div>
+                                        <div class="developer-details">
+                                            <h5>Phan Minh Nam</h5>
+                                            <p>Web Developer & Security Researcher</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="disclaimer">
+                                    <p><strong>Miễn trừ trách nhiệm:</strong> Tool này được tạo ra chỉ dành cho mục đích giáo dục. Người dùng chịu hoàn toàn trách nhiệm khi sử dụng.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer>
+                <p>&copy; 2023 TikTok Follower Booster - Developed by Phan Minh Nam - All Rights Reserved</p>
+            </footer>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
